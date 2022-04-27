@@ -14,8 +14,6 @@ public interface ImageRepository extends JpaRepository<Image,Long> {
     
     ArrayList<Image> findByName(String name);
 
-    ArrayList<Image> findByTag(String tag);
-
-    ArrayList<Image> findByOwnerId(Long id);
+    ArrayList<Image> findByOwnerId(String id);
 
 }

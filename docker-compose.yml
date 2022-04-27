@@ -1,0 +1,23 @@
+version: '3.4'
+services:
+  imagine_images_db:
+    image: 'mysql:5.7'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: imagine_images_db
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
+  imagine_images_ms:
+    image: imagine_images_ms
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://imagine_images_db:3306/imagine_images_db?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+    restart: always
+    build: .
+    depends_on:
+      - imagine_images_db

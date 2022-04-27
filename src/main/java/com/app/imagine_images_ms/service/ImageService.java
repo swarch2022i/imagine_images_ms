@@ -1,18 +1,59 @@
 package com.app.imagine_images_ms.service;
 
+
+import java.util.ArrayList;
 import java.util.Optional;
 
+
 import com.app.imagine_images_ms.entity.Image;
+import com.app.imagine_images_ms.repository.ImageRepository;
 
-public interface ImageService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    public Iterable<Image> findAll();
+@Service
+public class ImageService  {
 
-    public Optional<Image> findById(Long id);
+    @Autowired
+    private ImageRepository imageRepository;
 
-    public Image save(Image image);
+    @Transactional(readOnly = true)
+    public Iterable<Image> findAll() {
 
-    public void deleteById(long id);
+        return imageRepository.findAll();
+    }
 
-    
+    @Transactional(readOnly = true)
+    public Optional<Image> findById(Long id) {
+
+        return imageRepository.findById(id);
+    }
+
+    @Transactional
+    public Image save(Image image) {
+
+        return imageRepository.save(image);
+    }
+
+    @Transactional(readOnly = true)
+    public void deleteById(long id) {
+        imageRepository.deleteById(id);
+
+    }
+
+    @Transactional(readOnly = true)
+    public ArrayList<Image> findByName(String name) {
+        return imageRepository.findByName(name);
+
+    }
+
+
+
+    @Transactional
+    public ArrayList<Image> findByOwnerId(String id) {
+        return imageRepository.findByOwnerId(id);
+
+    }
+
 }

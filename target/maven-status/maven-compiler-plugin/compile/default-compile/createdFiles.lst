@@ -1,5 +1,4 @@
 com\app\imagine_images_ms\service\ImageService.class
-com\app\imagine_images_ms\service\ImageServiceImpl.class
 com\app\imagine_images_ms\controller\ImageController.class
 com\app\imagine_images_ms\entity\Image.class
 com\app\imagine_images_ms\ImagineImagesMsApplication.class

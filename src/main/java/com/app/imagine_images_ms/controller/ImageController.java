@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import com.app.imagine_images_ms.entity.Image;
-import com.app.imagine_images_ms.service.ImageServiceImpl;
+import com.app.imagine_images_ms.service.ImageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ImageController {
 
     @Autowired
-    private ImageServiceImpl imageServiceImpl;
+    private ImageService imageServiceImpl;
 
     
     
@@ -58,7 +58,7 @@ public class ImageController {
         }
         image.get().setName(imageDetails.getName());
         image.get().setDescription(imageDetails.getDescription());
-        image.get().setTag(imageDetails.getTag());
+        //image.get().setOwnTags(imageDetails.getOwnTags());
         image.get().setOwnerId(imageDetails.getOwnerId());
         image.get().setCommentsId(imageDetails.getCommentsId());
         image.get().setImageStorageId(imageDetails.getImageStorageId());
@@ -84,9 +84,9 @@ public class ImageController {
 
 
     @GetMapping
-    public List<Image> readAll() {
+    public ResponseEntity<List<Image>> readAll() {
         List<Image> images = StreamSupport.stream(imageServiceImpl.findAll().spliterator(), false).collect(Collectors.toList());
-        return images;
+        return ResponseEntity.ok(images);
 
     }
 
@@ -106,20 +106,23 @@ public class ImageController {
     //Buscar por tags
 
     @GetMapping("/tags/{tag}")
-    public ResponseEntity<ArrayList<Image>> readByTag (@PathVariable(value = "tag") String imageTags){
-        ArrayList<Image> oImage = imageServiceImpl.findByTags(imageTags);
+    public ResponseEntity<ArrayList<Image>> readByTag (@PathVariable(value = "tag") String imageTag){
+        List<Image> imagesI = StreamSupport.stream(imageServiceImpl.findAll().spliterator(), false).collect(Collectors.toList());
+        ArrayList<Image> imagesF = new ArrayList<>();
+        for(int i = 0; i < imagesI.size();i++){
+            if(imagesI.get(i).getTags().contains(imageTag)){
+                imagesF.add(imagesI.get(i));
+            }
 
-        if(oImage.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(oImage);
+            }
+        
+        return ResponseEntity.ok(imagesF);
     }
 
     //Buscar por Dueño
 
     @GetMapping("/people/{id}")
-    public ResponseEntity<ArrayList<Image>> readByOwnerId (@PathVariable(value = "id") Long OwnerId){
+    public ResponseEntity<ArrayList<Image>> readByOwnerId (@PathVariable(value = "id") String OwnerId){
         ArrayList<Image> oImage = imageServiceImpl.findByOwnerId(OwnerId);
 
         if(oImage.isEmpty()){

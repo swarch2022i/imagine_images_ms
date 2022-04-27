@@ -9,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
-
 import javax.persistence.Table;
 
 @Entity
@@ -23,9 +21,10 @@ public class Image {
     private String name;
     @Column(length = 50)
     private String description;
-    private String tag;
+
+    private ArrayList<String> tags;
     @Column(nullable = false)
-    private Long ownerId;
+    private String ownerId;
 
     private ArrayList<Long> commentsId;
     @Column(nullable = false)
@@ -57,21 +56,19 @@ public class Image {
         this.description = description;
     }
 
-
-    public String getTag() {
-        return this.tag;
+    public ArrayList<String> getTags() {
+        return this.tags;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
     }
-    
 
-    public Long getOwnerId() {
+    public String getOwnerId() {
         return this.ownerId;
     }
 
-    public void setOwnerId(Long ownerId) {
+    public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
 
