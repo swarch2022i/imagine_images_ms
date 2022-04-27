@@ -24,11 +24,11 @@ public class Image {
 
     private ArrayList<String> tags;
     @Column(nullable = false)
-    private String ownerId;
+    private Long ownerId;
 
     private ArrayList<Long> commentsId;
     @Column(nullable = false)
-    private Long imageStorageId;
+    private String imageStorageId;
     @Column(nullable = false)
     private URL url;
 
@@ -64,11 +64,11 @@ public class Image {
         this.tags = tags;
     }
 
-    public String getOwnerId() {
+    public Long getOwnerId() {
         return this.ownerId;
     }
 
-    public void setOwnerId(String ownerId) {
+    public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
 
@@ -80,11 +80,11 @@ public class Image {
         this.commentsId = commentsId;
     }
 
-    public Long getImageStorageId() {
+    public String getImageStorageId() {
         return this.imageStorageId;
     }
 
-    public void setImageStorageId(Long imageStorageId) {
+    public void setImageStorageId(String imageStorageId) {
         this.imageStorageId = imageStorageId;
     }
 

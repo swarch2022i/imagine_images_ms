@@ -51,7 +51,7 @@ public class ImageService  {
 
 
     @Transactional
-    public ArrayList<Image> findByOwnerId(String id) {
+    public ArrayList<Image> findByOwnerId(Long id) {
         return imageRepository.findByOwnerId(id);
 
     }

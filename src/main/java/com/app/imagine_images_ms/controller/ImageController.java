@@ -122,7 +122,7 @@ public class ImageController {
     //Buscar por Dueño
 
     @GetMapping("/people/{id}")
-    public ResponseEntity<ArrayList<Image>> readByOwnerId (@PathVariable(value = "id") String OwnerId){
+    public ResponseEntity<ArrayList<Image>> readByOwnerId (@PathVariable(value = "id") Long OwnerId){
         ArrayList<Image> oImage = imageServiceImpl.findByOwnerId(OwnerId);
 
         if(oImage.isEmpty()){
