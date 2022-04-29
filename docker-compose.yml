@@ -9,7 +9,7 @@ services:
     ports:
       - "3307:3306"
   imagine_images_ms:
-    image: imagine_images_ms
+    image: nisanchezva/imagine_images_ms
     ports:
       - "8080:8080"
     environment:
