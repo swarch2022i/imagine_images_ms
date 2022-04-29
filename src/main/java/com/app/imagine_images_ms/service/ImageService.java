@@ -25,7 +25,7 @@ public class ImageService  {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Image> findById(Long id) {
+    public Optional<Image> findById(String id) {
 
         return imageRepository.findById(id);
     }
@@ -37,7 +37,7 @@ public class ImageService  {
     }
 
     @Transactional(readOnly = true)
-    public void deleteById(long id) {
+    public void deleteById(String id) {
         imageRepository.deleteById(id);
 
     }
@@ -51,7 +51,7 @@ public class ImageService  {
 
 
     @Transactional
-    public ArrayList<Image> findByOwnerId(Long id) {
+    public ArrayList<Image> findByOwnerId(String id) {
         return imageRepository.findByOwnerId(id);
 
     }

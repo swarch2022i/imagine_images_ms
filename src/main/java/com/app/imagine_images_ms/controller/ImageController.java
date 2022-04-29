@@ -38,7 +38,7 @@ public class ImageController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> read (@PathVariable(value = "id") Long imageId){
+    public ResponseEntity<?> read (@PathVariable(value = "id") String imageId){
         Optional<Image> oImage = imageServiceImpl.findById(imageId);
 
         if(!oImage.isPresent()){
@@ -50,7 +50,7 @@ public class ImageController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update (@RequestBody Image imageDetails, @PathVariable(value = "id") Long imageId){
+    public ResponseEntity<?> update (@RequestBody Image imageDetails, @PathVariable(value = "id") String imageId){
         Optional<Image> image = imageServiceImpl.findById(imageId);
 
         if(!image.isPresent()){
@@ -58,7 +58,7 @@ public class ImageController {
         }
         image.get().setName(imageDetails.getName());
         image.get().setDescription(imageDetails.getDescription());
-        //image.get().setOwnTags(imageDetails.getOwnTags());
+        image.get().setTags(imageDetails.getTags());
         image.get().setOwnerId(imageDetails.getOwnerId());
         image.get().setCommentsId(imageDetails.getCommentsId());
         image.get().setImageStorageId(imageDetails.getImageStorageId());
@@ -72,7 +72,7 @@ public class ImageController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete (@PathVariable(value = "id") Long imageId){
+    public ResponseEntity<?> delete (@PathVariable(value = "id") String imageId){
         if(!imageServiceImpl.findById(imageId).isPresent()){
             return ResponseEntity.notFound().build();
         }
@@ -122,7 +122,7 @@ public class ImageController {
     //Buscar por Dueño
 
     @GetMapping("/people/{id}")
-    public ResponseEntity<ArrayList<Image>> readByOwnerId (@PathVariable(value = "id") Long OwnerId){
+    public ResponseEntity<ArrayList<Image>> readByOwnerId (@PathVariable(value = "id") String OwnerId){
         ArrayList<Image> oImage = imageServiceImpl.findByOwnerId(OwnerId);
 
         if(oImage.isEmpty()){

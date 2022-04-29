@@ -2,6 +2,7 @@ package com.app.imagine_images_ms.entity;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +12,16 @@ import javax.persistence.Id;
 
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "images")
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Column(name = "id", unique = true, nullable = false)
+    private String id;
 
     private String name;
     @Column(length = 50)
@@ -24,19 +29,19 @@ public class Image {
 
     private ArrayList<String> tags;
     @Column(nullable = false)
-    private Long ownerId;
+    private String ownerId;
 
-    private ArrayList<Long> commentsId;
+    private ArrayList<String> commentsId;
     @Column(nullable = false)
     private String imageStorageId;
     @Column(nullable = false)
-    private URL url;
+    private String url;
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -64,19 +69,19 @@ public class Image {
         this.tags = tags;
     }
 
-    public Long getOwnerId() {
+    public String getOwnerId() {
         return this.ownerId;
     }
 
-    public void setOwnerId(Long ownerId) {
+    public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
 
-    public ArrayList<Long> getCommentsId() {
+    public ArrayList<String> getCommentsId() {
         return this.commentsId;
     }
 
-    public void setCommentsId(ArrayList<Long> commentsId) {
+    public void setCommentsId(ArrayList<String> commentsId) {
         this.commentsId = commentsId;
     }
 
@@ -88,11 +93,11 @@ public class Image {
         this.imageStorageId = imageStorageId;
     }
 
-    public URL getUrl() {
+    public String getUrl() {
         return this.url;
     }
 
-    public void setUrl(URL url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 
