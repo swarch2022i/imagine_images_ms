@@ -1,5 +1,10 @@
 version: '3.4'
 services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+        - 5672:5672
+        - 15672:15672
   imagine_images_db:
     image: 'mysql:5.7'
     environment:
@@ -8,6 +13,19 @@ services:
       MYSQL_PASSWORD: root
     ports:
       - "3307:3306"
+  storage_ms:
+        image: rhiino/imagine_storage_ms:v2
+        environment:
+            - GCS_BUCKET=arqui
+            - GCS_FILE=clean-framework-340802-d71f73f1694f.json
+            - GCS_PROJECT_ID=clean-framework-340802
+            - GCS_ENDPOINT=https://storage.googleapis.com/
+            - RABBITMQ_HOST=rabbitmq
+        ports:
+            - "1234:3000"
+        depends_on:
+          - imagine_images_db
+          - rabbitmq
   imagine_images_ms:
     image: nisanchezva/imagine_images_ms
     ports:
@@ -17,7 +35,9 @@ services:
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: "root"
       SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      SPRING_RABBITMQ_HOST: rabbitmq
     restart: always
     build: .
     depends_on:
       - imagine_images_db
+      - rabbitmq

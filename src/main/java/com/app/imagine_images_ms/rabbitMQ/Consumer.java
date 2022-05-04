@@ -29,7 +29,7 @@ public class Consumer {
         JSONObject jsonMessage = new JSONObject(stringMessage);
         // Sacando el json de la información que necesito (el primer json solo tiene de
         // atributo "message", todos mis datos estan dentro de message)
-        JSONObject json = jsonMessage.getJSONObject("message");
+        JSONObject json = jsonMessage.getJSONObject("msg");
         // Creando la imagen para usarla despues
         Image image = new Image();
         // Asignando atributos, puedo aceptar valores vacios pero tienen que llegar esos
