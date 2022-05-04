@@ -56,4 +56,10 @@ public class ImageService  {
 
     }
 
+    @Transactional
+    public Optional<Image> findByImageStorageId(String imageId) {
+        return imageRepository.findByImageStorageId(imageId);
+
+    }
+
 }

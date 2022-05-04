@@ -131,5 +131,18 @@ public class ImageController {
 
         return ResponseEntity.ok(oImage);
     }
+
+    //Buscar por Image ID
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<?> readByImageStorageId (@PathVariable(value = "id") String imageId){
+        Optional<Image> oImage = imageServiceImpl.findByImageStorageId(imageId);
+
+        if(!oImage.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(oImage);
+    }
     
 }
